@@ -8,6 +8,6 @@ module Dozer
 
   # transform the data from one schema to another schema.
   def self.map(hash, mapper, options={})
-    mapper.call(hash, options)
+    mapper.transform(hash, options)
   end
 end
