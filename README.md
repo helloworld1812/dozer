@@ -1,8 +1,8 @@
-# Dozer
+# beta_feature
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/dozer`. To experiment with that code, run `bin/console` for an interactive prompt.
+[![Build Status](https://secure.travis-ci.org/helloworld1812/dozer.svg)](http://travis-ci.org/helloworld1812/dozer)
 
-TODO: Delete this and the text above, and describe your gem
+Inspired by a java library `dozer`, this ruby gem is used to convert hash from one schema to another schema. It provides a convenient way to mapping data from one system to another systems.
 
 ## Installation
 
@@ -22,7 +22,40 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+### step1: define a mapper class as a strategy.
+
+- include the module `Dozer::Mapperable`
+- use `mapping` method to mapping the data schema between source(:from) and destination(:to)
+
+```
+# adp_mapper.rb
+class AdpMapper
+  include Dozer::Mapperable
+
+  mapping from: 'adp/firstName', to: :first_name
+  mapping from: 'adp/lastName',  to: :last_name
+  mapping from: 'adp/gender',    to: :gender
+end
+```
+ 
+If you have multiple integrations, you can define a set of mapper classes in your Rails application folder.
+
+```
+mappers
+    - indeed_mapper.rb
+    - salesforce_mapper.rb
+    - adp_mapper.rb
+
+```
+
+### step2: convert the data from source to destination using this interface.
+
+```
+data = { 'adp/firstName' => 'Ryan', 'adp/lastName' => 'Lyu' }
+Dozer.map(data, AdpMapper)
+=> {first_name: 'Ryan', last_name: 'Lyu'}
+```
+
 
 ## Development
 
