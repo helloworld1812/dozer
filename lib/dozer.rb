@@ -1,10 +1,13 @@
+require 'active_support'
+require 'active_support/core_ext/hash'
 require "dozer/version"
+require 'dozer/mapperable'
 
 module Dozer
   class Error < StandardError; end
 
-  # mapping is the relation between two schemas.
+  # transform the data from one schema to another schema.
   def self.map(hash, mapper, options={})
-    mapper.call(hash, options)
+    mapper.transform(hash, options)
   end
 end
