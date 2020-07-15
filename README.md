@@ -1,4 +1,4 @@
-# beta_feature
+# dozer
 
 [![Build Status](https://secure.travis-ci.org/helloworld1812/dozer.svg)](http://travis-ci.org/helloworld1812/dozer)
 
