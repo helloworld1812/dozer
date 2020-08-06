@@ -3,6 +3,7 @@ require "dozer"
 require 'pry'
 require 'lib/dozer/test_mapper/foo_mapper'
 require 'lib/dozer/test_mapper/bar_mapper'
+require 'lib/dozer/test_mapper/adp_mapper'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
