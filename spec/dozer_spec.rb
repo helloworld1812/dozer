@@ -3,7 +3,7 @@ RSpec.describe Dozer do
     expect(Dozer::VERSION).not_to be nil
   end
 
-  it 'should successfull map data from one schema to another schema' do
+  it 'should successfully map data from one schema to another schema' do
     hash = { 'legal_first_name' => 'Ryan', legal_last_name: 'Lyu' }
     result = Dozer.map(hash, BarMapper)
 

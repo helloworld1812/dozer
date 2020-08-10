@@ -32,12 +32,45 @@ Or install it yourself as:
 class AdpMapper
   include Dozer::Mapperable
 
-  mapping from: 'adp/firstName', to: :first_name
-  mapping from: 'adp/lastName',  to: :last_name
-  mapping from: 'adp/gender',    to: :gender
+  mapping from: 'adp/firstName',   to: :first_name
+  mapping from: 'adp/lastName',    to: :last_name
+  mapping from: 'adp/gender',      to: :gender
 end
 ```
- 
+
+How to transform the value when mapping? You can do it in two ways: proc or method.
+
+Usage example of Proc
+
+```
+class AdpMapper
+  include Dozer::Mapperable
+
+  mapping from: 'adp/gender',      to: :gender,    func: -> (value) { {male: 'M', female: 'F'}.fetch(value) } 
+  mapping from: 'marital_status',  to: :marriage, 
+  mapping from: 'adp/gender',      to: :gender
+end
+```
+
+Usage example of method
+
+```
+class AdpMapper
+  include Dozer::Mapperable
+
+  mapping from: 'gender',          to: :gender,    func: :gender_to_integer
+  mapping from: 'marital_status',  to: :marriage, 
+
+  def gender_to_integer(val)
+    new_value = {male: 1, female: 2}.fetch(val, nil)
+    new_value
+  end
+end
+```
+
+
+
+
 If you have multiple integrations, you can define a set of mapper classes in your Rails application folder.
 
 ```

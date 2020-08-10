@@ -1,6 +1,7 @@
 require 'active_support'
 require 'active_support/core_ext/hash'
 require "dozer/version"
+require 'dozer/rule'
 require 'dozer/mapperable'
 
 module Dozer
