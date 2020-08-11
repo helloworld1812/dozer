@@ -43,11 +43,12 @@ RSpec.describe Dozer::Mapperable do
 
     context 'keys are string' do
       it 'should transform a hash from one schema to another schema' do
-        hash = { 'legal_first_name' => 'Ryan', 'legal_last_name' => 'Lyu' }
+        hash = { 'legal_first_name' => 'Ryan', 'legal_last_name' => 'Lyu', 'legal_m' => 'D' }
         result = BarMapper.transform(hash)
 
         expect(result[:first_name]).to eq('Ryan')
         expect(result[:last_name]).to eq('Lyu')
+        expect(result[:middle_name]).to eq('D')
       end
 
       it 'should ignore the key that are not listed' do

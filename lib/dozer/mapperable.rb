@@ -10,7 +10,7 @@ module Dozer
 
       def transform(input, options={})
         input, output = input.with_indifferent_access, ActiveSupport::HashWithIndifferentAccess.new
-        kvs = all_rules.map { |rule| rule.apply(input) }.compact!
+        kvs = all_rules.map { |rule| rule.apply(input) }.compact
         kvs.each do |kv|
           key, value = kv.first, kv.last
           output[key] = value
