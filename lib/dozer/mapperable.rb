@@ -2,21 +2,25 @@ module Dozer
   module Mapperable
     extend ActiveSupport::Concern
 
+    included do
+      attr_accessor :input, :output
+    end
+
+    def initialize(input)
+      @input = input.with_indifferent_access
+      @output = ActiveSupport::HashWithIndifferentAccess.new
+    end 
+
     module ClassMethods
+
       def mapping(options)
-        rule = Dozer::Rule.new(options.merge(base_klass: self))
-        append_rule(rule)
+        append_rule(Dozer::Rule.new(options))
       end
 
-      def transform(input, options={})
-        input, output = input.with_indifferent_access, ActiveSupport::HashWithIndifferentAccess.new
-        kvs = all_rules.map { |rule| rule.apply(input) }.compact
-        kvs.each do |kv|
-          key, value = kv.first, kv.last
-          output[key] = value
-        end
-
-        output
+      def transform(input)
+        instance = self.new(input)
+        all_rules.each { |rule| rule.apply!(instance) }
+        instance.output
       end
 
       private
