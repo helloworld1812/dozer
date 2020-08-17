@@ -33,31 +33,31 @@ RSpec.describe Dozer::Rule do
     end
   end
 
-  describe '#evaluate' do
-    it 'should call a proc to convert a datetime to date' do
-      started_at = DateTime.parse('2020-08-06 11:37:25')
-      rule = Dozer::Rule.new(from: :started_at, to: :start_on, func: ->(datetime) { datetime.to_date.to_s })
-      started_on = rule.send(:evaluate, started_at)
-      expect(started_on).to eq('2020-08-06')
-    end
+  # describe '#evaluate' do
+  #   it 'should call a proc to convert a datetime to date' do
+  #     started_at = DateTime.parse('2020-08-06 11:37:25')
+  #     rule = Dozer::Rule.new(from: :started_at, to: :start_on, func: ->(datetime) { datetime.to_date.to_s })
+  #     started_on = rule.send(:evaluate, started_at)
+  #     expect(started_on).to eq('2020-08-06')
+  #   end
 
-    it 'should call a method to convert an string to string' do
-      class TestMapperWithMethod
-        include ::Dozer::Mapperable
+  #   it 'should call a method to convert an string to string' do
+  #     class TestMapperWithMethod
+  #       include ::Dozer::Mapperable
 
-        def status_to_boolean(val)
-          case val
-          when 'true'
-            true
-          when 'false'
-            false
-          end
-        end
-      end
+  #       def status_to_boolean(val)
+  #         case val
+  #         when 'true'
+  #           true
+  #         when 'false'
+  #           false
+  #         end
+  #       end
+  #     end
 
-      rule = Dozer::Rule.new(from: :status, to: :status, func: :status_to_boolean, base_klass: TestMapperWithMethod)
-      expect(rule.send(:evaluate, 'true')).to be true
-      expect(rule.send(:evaluate, 'false')).to be false
-    end
-  end
+  #     rule = Dozer::Rule.new(from: :status, to: :status, func: :status_to_boolean, base_klass: TestMapperWithMethod)
+  #     expect(rule.send(:evaluate, 'true')).to be true
+  #     expect(rule.send(:evaluate, 'false')).to be false
+  #   end
+  # end
 end
