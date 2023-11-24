@@ -17,7 +17,7 @@ module Dozer
         append_rule(Dozer::Rule.new(options))
       end
 
-      def transform(input)
+      def transform(input,options={})
         instance = self.new(input)
         all_rules.each { |rule| rule.apply!(instance) }
         instance.output
