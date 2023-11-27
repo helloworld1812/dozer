@@ -3,12 +3,13 @@ module Dozer
     extend ActiveSupport::Concern
 
     included do
-      attr_accessor :input, :output
+      attr_accessor :input, :output, :options
     end
 
-    def initialize(input)
+    def initialize(input,hash)
       @input = input.with_indifferent_access
       @output = ActiveSupport::HashWithIndifferentAccess.new
+      @options = hash.with_indifferent_access
     end 
 
     module ClassMethods
@@ -17,8 +18,8 @@ module Dozer
         append_rule(Dozer::Rule.new(options))
       end
 
-      def transform(input,options={})
-        instance = self.new(input)
+      def transform(input,hash={})
+        instance = self.new(input,hash)
         all_rules.each { |rule| rule.apply!(instance) }
         instance.output
       end
