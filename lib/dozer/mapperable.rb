@@ -6,7 +6,7 @@ module Dozer
       attr_accessor :input, :output, :options
     end
 
-    def initialize(input,data)
+    def initialize(input, data)
       @input = input.with_indifferent_access
       @output = ActiveSupport::HashWithIndifferentAccess.new
       @options = data.with_indifferent_access
@@ -18,8 +18,8 @@ module Dozer
         append_rule(Dozer::Rule.new(options))
       end
 
-      def transform(input,data={})
-        instance = self.new(input,data)
+      def transform(input, data={})
+        instance = self.new(input, data)
         all_rules.each { |rule| rule.apply!(instance) }
         instance.output
       end
