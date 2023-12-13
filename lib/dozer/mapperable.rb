@@ -9,7 +9,7 @@ module Dozer
     def initialize(input, data={})
       @input = input.with_indifferent_access
       @output = ActiveSupport::HashWithIndifferentAccess.new
-      @options = data.with_indifferent_access
+      @options = data&.with_indifferent_access
     end 
 
     module ClassMethods
