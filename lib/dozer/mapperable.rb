@@ -6,11 +6,11 @@ module Dozer
       attr_accessor :input, :output, :options
     end
 
-    def initialize(input, data)
+    def initialize(input, data = {})
       @input = input.with_indifferent_access
       @output = ActiveSupport::HashWithIndifferentAccess.new
-      @options = data.with_indifferent_access
-    end 
+      @options = data&.with_indifferent_access || {}
+    end
 
     module ClassMethods
 
